@@ -13,6 +13,7 @@
 // limitations under the License.
 
 const std = @import("std");
+const utils = @import("./utils.zig");
 
 const COPYRIGHT = "LynxDB Client Version {s}\nAll Right Reserved (c) Baili Zhang.\n\n";
 const VERSION = "2024.5.3";
@@ -43,10 +44,9 @@ pub fn main() !void {
         var line = std.ArrayList(u8).init(allocator);
         defer line.deinit();
 
-        const writer = line.writer();
-        try stdin.streamUntilDelimiter(writer, '\n', null);
+        _ = try stdin.readUntilDelimiterArrayList(&line, '\n', 1024);
 
-        if (line.items[0] == 'e') {
+        if (utils.equals(&line, EXIT)) {
             isExited = true;
         }
     }
