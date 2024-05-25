@@ -1,0 +1,25 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build LynxDB Client Project",
+			"type": "shell",
+			"command": "zig build",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Run LynxDB Client",
+			"type": "shell",
+			"command": "${workspaceFolder}/zig-out/bin/lynxdb-cli.exe",
+			"group": {
+				"kind": "none",
+				"isDefault": true
+			},
+			"problemMatcher": []
+		}
+	]
+}

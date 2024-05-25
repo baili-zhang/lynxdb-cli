@@ -22,8 +22,10 @@ const COLUMN_FAMILY = "Column Family: ";
 const COLUMN = "Column: ";
 const KEY_VALUE_PAIRS = "Key Value Pairs: ";
 const INSERT = "insert";
+const FIND = "find";
 const EXIT = "exit";
 const ERROR = "Error: ";
+const GOOD_BYE = "Good Bye.\n";
 const INVALID_COMMAND = "Invalid Command";
 
 pub fn main() !void {
@@ -37,17 +39,28 @@ pub fn main() !void {
 
     const allocator = gpa.allocator();
 
-    var isExited: bool = false;
-    while (!isExited) {
+    while (true) {
         try stdout.print(PROMPT, .{});
 
         var line = std.ArrayList(u8).init(allocator);
         defer line.deinit();
 
         _ = try stdin.readUntilDelimiterArrayList(&line, '\n', 1024);
+        utils.removeLeftWhitespace(&line);
 
         if (utils.equals(&line, EXIT)) {
-            isExited = true;
+            try stdout.print(GOOD_BYE, .{});
+            return;
+        }
+
+        if (utils.equals(&line, INSERT)) {
+            try stdout.print("Do Insert\n", .{});
+            continue;
+        }
+
+        if (utils.equals(&line, FIND)) {
+            try stdout.print("Do FIND\n", .{});
+            continue;
         }
     }
 }
