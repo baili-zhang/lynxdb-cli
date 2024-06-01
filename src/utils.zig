@@ -15,15 +15,8 @@
 const std = @import("std");
 
 pub fn removeLeftWhitespace(list: *std.ArrayList(u8)) void {
-    while (list.items.len != 0) {
-        switch (list.getLast()) {
-            '\n', '\t', '\r' => {
-                _ = list.pop();
-            },
-            else => {
-                return;
-            },
-        }
+    while (list.items.len != 0 and std.ascii.isWhitespace(list.getLast())) {
+        _ = list.pop();
     }
 }
 
